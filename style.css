@@ -61,3 +61,24 @@ main img{
     justify-self: center;
     align-self: center;
 }
+.gameDisplay{
+    grid-column: 2;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+
+}
+.dificulties{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+button{
+    margin: 0.6rem;
+}
+span{
+    font-weight: bold;
+    font-style: italic;
+}

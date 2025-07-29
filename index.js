@@ -3,7 +3,17 @@ let appleEaten = 0;
 const startGame = document.getElementById("start");
 const pAppleRecord = document.getElementById("recordAppleEaten"); 
 
-const clockGame = 1000;
+const dEasy = document.getElementById("dEasy");
+const dNormal = document.getElementById("dNormal");
+const dHard = document.getElementById("dHard");
+const showDificulty = document.getElementById("dificultyShow");
+function showDifficult(dificulties){
+    console.log(dificulties)
+    showDificulty.textContent =dificulties.toUpperCase();
+}
+
+
+let clockGame = 750;
 let playerPosition = {};
 let playerLost = false;
 apple.style.display = "none";
@@ -15,6 +25,8 @@ function randomNumber(min, max){
 }
 
 function game(){
+    //Parametros Iniciales del Juego
+    startGame.removeEventListener("click", game); //Removemos Boton de Iniciar Juego
     let tail = 0;
     tailDirection = [];
     tailTrack = false;
@@ -30,6 +42,8 @@ function game(){
             boardgame.appendChild(matriz[i][j]);
             matriz[i][j].style.gridRow = i;
             matriz[i][j].style.gridColumn = j;
+            //Reiniciamos Tablero
+            matriz[i][j].style.backgroundColor = "rgb(159, 194, 194)";
             console.log(matriz[i][j]);
         }
     }
@@ -124,6 +138,8 @@ function game(){
             playerPosition.x = randomNumber(1,10);
             playerPosition.y = randomNumber(1,10);
             clearInterval(gameProgress);
+            
+            startGame.addEventListener("click", game);
         }
     }
     function appleAppears(){
@@ -181,9 +197,23 @@ function game(){
     },clockGame)
 }
 
+function dificulties(dificulty){
+    if(dificulty === "easy"){
+        clockGame = 1000;
+    }
+    if(dificulty === "normal"){
+        clockGame = 750;
+    }
+    if(dificulty === "hard"){
+        clockGame = 500;
+    }
+}
 
-
-
-
+//Dificiltad Buttons
+dificulties("normal");
+showDifficult("normal");
+dEasy.addEventListener("click", ()=>{dificulties("easy"), showDifficult("easy")});
+dNormal.addEventListener("click", ()=>{dificulties("normal"), showDifficult("normal")});
+dHard.addEventListener("click", ()=>{dificulties("hard"), showDifficult("hard")});
 
 startGame.addEventListener("click", game);

@@ -12,7 +12,16 @@
         <p id="recordAppleEaten">0</p>
     </div>
     <main id="game"></main>
-    <button id="start" type="submit">Empezar Juego</button>
+    <section class="gameDisplay">
+        <button id="start" type="submit">Empezar Juego</button>
+        <h1>Dificultad</h1>
+        <div class="dificulties">
+            <button id="dEasy" type="submit">Facil</button>
+            <button id="dNormal" type="submit">Normal</button>
+            <button id="dHard" type="submit">Dificil</button>
+        </div>
+        <p>Dificultad: <span id="dificultyShow"></span></p>
+    </section>
     <img id="apple" src="./assets/img/2909753.png" alt="manzanita">
     <script src="./index.js"></script>
 </body>
