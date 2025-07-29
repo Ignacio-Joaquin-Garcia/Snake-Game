@@ -1,7 +1,17 @@
+const startGame = document.getElementById("start");
+
+const pAppleRecord = document.getElementById("recordAppleEaten"); 
+const appleEatenInGame = document.getElementById("appleEatenInGame"); 
+
 const apple = document.getElementById("apple");
 let appleEaten = 0;
-const startGame = document.getElementById("start");
-const pAppleRecord = document.getElementById("recordAppleEaten"); 
+let appleRecordStorage = localStorage.getItem("appleRecord");
+let appleRecord = 0;
+if (appleRecordStorage != null){
+    console.log("si")
+    appleRecord = Number(appleRecordStorage)
+    pAppleRecord.textContent = appleRecord;
+}
 
 const dEasy = document.getElementById("dEasy");
 const dNormal = document.getElementById("dNormal");
@@ -27,6 +37,7 @@ function randomNumber(min, max){
 function game(){
     //Parametros Iniciales del Juego
     startGame.removeEventListener("click", game); //Removemos Boton de Iniciar Juego
+    appleEatenInGame.textContent = appleEaten;
     let tail = 0;
     tailDirection = [];
     tailTrack = false;
@@ -138,6 +149,12 @@ function game(){
             playerPosition.x = randomNumber(1,10);
             playerPosition.y = randomNumber(1,10);
             clearInterval(gameProgress);
+            if (appleEaten > appleRecord){
+                appleRecord = appleEaten
+                pAppleRecord.textContent = appleRecord;
+                localStorage.setItem("appleRecord", appleRecord);
+            }
+            appleEaten = 0;
             
             startGame.addEventListener("click", game);
         }
@@ -161,7 +178,7 @@ function game(){
     function havePlayerAteApple(){
         if((playerPosition.x == xApple) && (playerPosition.y == yApple)){
             appleEaten++;
-            pAppleRecord.textContent = appleEaten;
+            appleEatenInGame.textContent = appleEaten;
             apple.style.display = "none";
             console.log("Apple Eaten")
         }
