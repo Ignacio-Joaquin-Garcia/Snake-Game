@@ -2,13 +2,11 @@ const startGame = document.getElementById("start");
 
 const pAppleRecord = document.getElementById("recordAppleEaten"); 
 const appleEatenInGame = document.getElementById("appleEatenInGame"); 
-
 const apple = document.getElementById("apple");
 let appleEaten = 0;
 let appleRecordStorage = localStorage.getItem("appleRecord");
 let appleRecord = 0;
 if (appleRecordStorage != null){
-    console.log("si")
     appleRecord = Number(appleRecordStorage)
     pAppleRecord.textContent = appleRecord;
 }
@@ -34,9 +32,15 @@ function randomNumber(min, max){
     return randomNumber
 }
 
+let n = 0;
 function game(){
     //Parametros Iniciales del Juego
     startGame.removeEventListener("click", game); //Removemos Boton de Iniciar Juego
+    
+    n++;
+    if (n === 1){
+        playerChangeDirection();
+    }
     appleEatenInGame.textContent = appleEaten;
     let tail = 0;
     tailDirection = [];
@@ -74,6 +78,7 @@ function game(){
     }
     
     function playerChangeDirection(){
+        //Controles PC
         document.addEventListener("keydown", (event)=>{
             if(event.key === "w"){
                 playerDirection = "up";
@@ -86,6 +91,32 @@ function game(){
             }
             if(event.key === "s"){
                 playerDirection = "down";
+            }
+        })
+        //Controles Celular
+        document.addEventListener("touchend", (event)=>{
+            let x = event.changedTouches[0].clientX;
+            let y = event.changedTouches[0].clientY;
+            console.log("x: " +x + " y: "+ y)
+            if(y>350){
+                if(x>100 && x<280){
+                    playerDirection = "down";
+                    console.log(playerDirection)
+                } 
+            } else if(y<=350){
+                if(x>100 && x<280){
+                    playerDirection = "up";
+                }
+            }
+            if(x>200){
+                if(y>200 && y<500){
+                    playerDirection = "right";
+                }
+            }
+            if(x<=200){
+                if(y>200 && y<500){
+                    playerDirection = "left";
+                }
             }
         })
     };
@@ -205,7 +236,6 @@ function game(){
         i++
         if(i === 1){
             inicialDirection();
-            playerChangeDirection();
         };
         playerDirectionController();
         appleAppears()

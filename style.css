@@ -92,3 +92,26 @@ span{
 h3{
     margin-top: 3rem;
 }
+#start{
+    margin-bottom: 2rem;
+}
+
+@media (max-width:550px) {
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+    }
+    .dificulties{
+        flex-direction: column;
+    }
+    button{
+        width: 6rem;
+        height: 2.5rem;
+    }
+    main{
+        margin: 2rem;
+    }
+    
+}
