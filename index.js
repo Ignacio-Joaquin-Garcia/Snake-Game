@@ -20,7 +20,6 @@ function showDifficult(dificulties){
     showDificulty.textContent =dificulties.toUpperCase();
 }
 
-
 let clockGame = 750;
 let playerPosition = {};
 let playerLost = false;
@@ -33,6 +32,7 @@ function randomNumber(min, max){
 }
 
 let n = 0;
+let noScroll;
 function game(){
     //Parametros Iniciales del Juego
     startGame.removeEventListener("click", game); //Removemos Boton de Iniciar Juego
@@ -41,6 +41,10 @@ function game(){
     if (n === 1){
         playerChangeDirection();
     }
+    noScroll = document.addEventListener("touchmove", (event)=>{
+        event.preventDefault()
+    }, { passive: false })
+
     appleEatenInGame.textContent = appleEaten;
     let tail = 0;
     tailDirection = [];
@@ -186,7 +190,7 @@ function game(){
                 localStorage.setItem("appleRecord", appleRecord);
             }
             appleEaten = 0;
-            
+            noScroll.removeEventListener();
             startGame.addEventListener("click", game);
         }
     }
